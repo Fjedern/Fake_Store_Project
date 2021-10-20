@@ -24,7 +24,7 @@ export default function Item({ item }) {
               {item.title}
             </h2>
             <h6 className="mt-1 text-gray-500">
-              Rate: {item.rating.rate} Reviews: {item.rating.count}
+              Rating: {item.rating.rate} Reviews: {item.rating.count}
             </h6>
             <p className="mt-2 leading-relaxed">{item.description}</p>
             <div className="mt-4">
