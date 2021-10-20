@@ -14,7 +14,7 @@ export default function Home({ products }) {
 
       <div className={styles.container}>
         {products.map((product) => (
-          <Link key={product.id} href="">
+          <Link key={product.id} href={`products/${product.id}`}>
             <div>
               <Image
                 src={product.image}
@@ -35,6 +35,5 @@ export async function getStaticProps() {
   const res = await fetch("https://fakestoreapi.com/products");
   const data = await res.json();
 
-  console.log(data);
   return { props: { products: data } };
 }
