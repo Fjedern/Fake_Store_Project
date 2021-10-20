@@ -22,7 +22,7 @@ export default function Home({ products }) {
                 width={200}
                 height={200}
               />
-              <h2>{product.title}</h2>
+              <h1>{product.title}</h1>
             </div>
           </Link>
         ))}
