@@ -40,7 +40,7 @@ export default function Navbar() {
       <Link href="about" passHref>
         About us
       </Link>
-      <Link href="cart" passHref>
+      <Link href="shoppingcart" passHref>
         <Image alt={shoppingcart} src={shoppingcart} />
       </Link>
     </nav>

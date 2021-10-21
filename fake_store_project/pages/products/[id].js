@@ -2,8 +2,13 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../../styles/productsDisplay.module.css";
 
-function addItemToCart(){
+var items = [{}];
+
+function addItemToCart(item) {
   console.log("You pressed button");
+
+  items.push(item);
+  localStorage.setItem("product", JSON.stringify(items));
 }
 
 export default function Item({ item }) {
@@ -31,7 +36,7 @@ export default function Item({ item }) {
               <h4>Price: ${item.price}</h4>
               <button
                 className="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
-                onClick={() => addItemToCart()}
+                onClick={() => addItemToCart(item)}
               >
                 Add to cart
               </button>
@@ -47,7 +52,7 @@ export async function getStaticPaths() {
   const res = await fetch("https://fakestoreapi.com/products");
   const data = await res.json();
 
-  const paths = data.map((item) => ({ params: { id: item.id.toString()} }));
+  const paths = data.map((item) => ({ params: { id: item.id.toString() } }));
 
   return { paths, fallback: false };
 }
