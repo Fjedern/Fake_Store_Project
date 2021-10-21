@@ -12,24 +12,34 @@ export default function Home({ products }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.container}>
-        {products.map((product) => (
-          <Link key={product.id} href={`products/${product.id}`} passHref>
-            <div>
-              <Image
-                src={product.image}
-                alt={product.image}
-                width={170}
-                height={210}
-              />
-
-              <h2>{product.title}</h2>
-              <div>
-                <h4>Price: ${product.price}</h4>
-              </div>
-            </div>
-          </Link>
-        ))}
+      <div>
+        <div className="w-auto">
+          <div className="grid justify-items-center">
+            <Image
+              src="/FakeStoreLogo.PNG"
+              alt="Fake store"
+              width={400}
+              height={400}
+            />
+            <h2 className="mt-20 mb-8 text-4xl font-black">Today´s offer</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-50 min-w-full md:min-w-0  max-w-7xl mx-auto">
+            {products.slice(0, 3).map((product) => (
+              <Link key={product.id} href={`products/${product.id}`}>
+                <div className=" opacity-80 hover:opacity-100 p-2 bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl grid justify-items-center">
+                  <Image
+                    src={product.image}
+                    alt={product.image}
+                    width={170}
+                    height={210}
+                  />
+                  <h3 className="text-2xl font-semibold">{product.title}</h3>
+                  <p className="text-xl font-medium">Only ${product.price}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
