@@ -14,15 +14,19 @@ export default function Home({ products }) {
 
       <div className={styles.container}>
         {products.map((product) => (
-          <Link key={product.id} href={`products/${product.id}`}>
+          <Link key={product.id} href={`products/${product.id}`} passHref>
             <div>
               <Image
                 src={product.image}
                 alt={product.image}
-                width={200}
-                height={200}
+                width={170}
+                height={210}
               />
-              <h1>{product.title}</h1>
+
+              <h2>{product.title}</h2>
+              <div>
+                <h4>Price: ${product.price}</h4>
+              </div>
             </div>
           </Link>
         ))}
