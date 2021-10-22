@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function Shoppingcart() {
+export default function Cart() {
   let [cart, setCart] = useState([]);
 
   let localCart;
