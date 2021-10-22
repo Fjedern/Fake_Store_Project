@@ -1,13 +1,51 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../../styles/productsDisplay.module.css";
-
-function addItemToCart() {
-  console.log("You pressed button");
-}
+import { useEffect, useState } from "react";
 
 export default function Item({ item }) {
-  console.log(item);
+  let [cart, setCart] = useState([]);
+
+  let localCart;
+  if (typeof window !== "undefined") {
+    localCart = localStorage.getItem("cart");
+  }
+
+  const addItem = (item) => {
+    //create a copy of our cart state, avoid overwritting existing state
+    let cartCopy = [...cart];
+  
+    //assuming we have an ID field in our item
+    let { id } = item;
+  
+    //look for item in cart array
+    let existingItem = cartCopy.find((cartItem) => cartItem.id == id);
+  
+    //if item already exists
+    if (existingItem) {
+       existingItem.quantity += item.quantity; //update item
+    } else {
+      //if item doesn't exist, simply add it
+      cartCopy.push(item);
+    }
+  
+    //update app state
+    setCart(cartCopy);
+  
+    //make cart a string and store in local space
+    let stringCart = JSON.stringify(cartCopy);
+    localStorage.setItem("cart", stringCart);
+  };
+
+  //this is called on component mount
+  useEffect(() => {
+    //turn it into js
+    localCart = JSON.parse(localCart);
+    //load persisted cart into state if it exists
+    if (localCart) setCart(localCart);
+  }, []); //the empty array ensures useEffect only runs once
+
+  console.log(localCart);
   return (
     <div className={styles.main}>
       <Head>
@@ -31,7 +69,7 @@ export default function Item({ item }) {
               <h4>Price: ${item.price}</h4>
               <button
                 className="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
-                onClick={() => addItemToCart()}
+                onClick={() => addItem(item)}
               >
                 Add to cart
               </button>
