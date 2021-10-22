@@ -1,15 +1,24 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Shoppingcart() {
-  let items = [{}];
+  let [cart, setCart] = useState([]);
 
+  let localCart;
   if (typeof window !== "undefined") {
-    for (var i = 0; i <= localStorage.length; i++) {
-      console.log(localStorage.getItem("product"));
-      items.push(localStorage.getItem("product"));
-    }
+    localCart = localStorage.getItem("cart");
   }
+
+  //this is called on component mount
+  useEffect(() => {
+    //turn it into js
+    localCart = JSON.parse(localCart);
+    //load persisted cart into state if it exists
+    if (localCart) setCart(localCart);
+  }, []); //the empty array ensures useEffect only runs once
+
+ 
 
   return (
     <div>
@@ -21,7 +30,7 @@ export default function Shoppingcart() {
 
       <h1>Shoppingcart!</h1>
 
-      {items.map((item) => (
+      {cart.map((item) => (
         <div key={item}>
           <h2>{item.title}</h2>
         </div>
