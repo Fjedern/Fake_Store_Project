@@ -30,19 +30,31 @@ export default function Navbar() {
   if (!navLinks) return <div>Error</div>;
 
   return (
-    <nav className={styles.navbar}>
-      <Link href="/">Home</Link>
-      {navLinks.map((item) => (
-        <Link key={item} href={`/${encodeURIComponent(item)}`} passHref>
-          {Capitalize(item)}
-        </Link>
-      ))}
-      <Link href="about" passHref>
-        About us
-      </Link>
-      <Link href="shoppingcart" passHref>
-        <Image alt={shoppingcart} src={shoppingcart} />
-      </Link>
+
+    <nav className="bg-gray-800">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div className="relative flex items-center justify-between h-16">
+          <Link href="/">
+            <a className="text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium">
+              Home
+            </a>
+          </Link>
+          {navLinks.map((item) => (
+            <Link key={item} href={`/${encodeURIComponent(item)}`} passHref>
+              <a className="text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium">
+                {Capitalize(item)}
+              </a>
+            </Link>
+          ))}
+          <Link href="cart" passHref>
+            <Image
+              className="filter invert text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md"
+              alt={shoppingcart}
+              src={shoppingcart}
+            />
+          </Link>
+        </div>
+      </div>
     </nav>
   );
 }

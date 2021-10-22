@@ -3,8 +3,6 @@ import Image from "next/image";
 import styles from "../../styles/productsDisplay.module.css";
 import { useEffect, useState } from "react";
 
-
-
 export default function Item({ item }) {
   let [cart, setCart] = useState([]);
 
@@ -57,7 +55,7 @@ export default function Item({ item }) {
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         <div className="md:flex">
           <div className="p-8 md:flex-shrink-0">
-            <Image width={200} height={200} src={item.image} alt={item.image} />
+            <Image width={170} height={210} src={item.image} alt={item.image} />
           </div>
           <div className="p-8">
             <h2 className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
