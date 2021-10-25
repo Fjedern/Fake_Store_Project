@@ -21,6 +21,7 @@ export default function Home({ products }) {
               width={400}
               height={400}
             />
+
             <h2 className="mt-20 mb-8 text-4xl font-black">Today´s offer</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-50 min-w-full md:min-w-0  max-w-7xl mx-auto">
