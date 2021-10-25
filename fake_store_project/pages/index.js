@@ -33,6 +33,7 @@ export default function Home({ products }) {
       <div>
         <div className="w-auto">
           <div className="grid justify-items-center">
+
             <motion.div animate={{ rotate: -360 }} transition={{ duration: 1 }}>
               <Image
                 src="/FakeStoreLogo.PNG"
@@ -48,6 +49,7 @@ export default function Home({ products }) {
             >
               Today´s offer
             </motion.h2>
+
           </div>
           <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-50 min-w-full md:min-w-0  max-w-7xl mx-auto">
             {products.slice(0, 3).map((product) => (

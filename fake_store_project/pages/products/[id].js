@@ -1,10 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../../styles/productsDisplay.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { Context } from "../../pages/_app";
 
 export default function Item({ item }) {
   let [cart, setCart] = useState([]);
+  const { count, setCount } = useContext(Context);
 
   let localCart;
   if (typeof window !== "undefined") {
@@ -14,24 +16,27 @@ export default function Item({ item }) {
   const addItem = (item) => {
     //create a copy of our cart state, avoid overwritting existing state
     let cartCopy = [...cart];
-  
+
+    //update global Context
+    setCount(count + 1);
+
     //assuming we have an ID field in our item
     let { id } = item;
-  
+
     //look for item in cart array
     let existingItem = cartCopy.find((cartItem) => cartItem.id == id);
-  
+
     //if item already exists
     if (existingItem) {
-       existingItem.quantity += item.quantity; //update item
+      existingItem.quantity += item.quantity; //update item
     } else {
       //if item doesn't exist, simply add it
       cartCopy.push(item);
     }
-  
+
     //update app state
     setCart(cartCopy);
-  
+
     //make cart a string and store in local space
     let stringCart = JSON.stringify(cartCopy);
     localStorage.setItem("cart", stringCart);
