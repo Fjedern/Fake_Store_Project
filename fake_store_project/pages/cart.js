@@ -1,9 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Item from "./products/[id]";
 
 export default function Cart() {
   let [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   let localCart;
   if (typeof window !== "undefined") {
@@ -18,7 +20,50 @@ export default function Cart() {
     if (localCart) setCart(localCart);
   }, []); //the empty array ensures useEffect only runs once
 
- 
+  useEffect(() => {
+    let tempTotalPrice = 0;
+    for (let index = 0; index < cart.length; index++) {
+      // console.log(cart[index].price);
+      tempTotalPrice = tempTotalPrice + cart[index].price;
+    }
+    setTotalPrice(tempTotalPrice);
+  }, [cart]);
+
+  const removeFromLocalStorage = () => {
+    //Remove from local storage
+    let stringCart = JSON.stringify(cart);
+    localStorage.setItem("cart", stringCart);
+  };
+
+  const clearAll = () => {
+    console.log("Checkout button pressed");
+  };
+
+  const removeItem = (item) => {
+    console.log(cart.length);
+    cart.forEach((e) => console.log("Before: " + e.title));
+
+    //Remove from cart
+    setCart(cart.filter((e) => e.title !== item.title));
+    setTimeout(() => {
+      cart.forEach((e) => console.log("After: " + e.title));
+      // console.log(localStorage);
+      removeFromLocalStorage();
+      //  console.log(localStorage);
+      console.log("Cart size: " + cart.length);
+
+      cart.forEach((e) => console.log(e));
+    }, 2000);
+  };
+
+  const removeOneItem = (item) => {
+    console.log("Remove one item button pressed");
+  };
+
+  const addOneMoreItem = (item) => {
+    console.log("Add one more item button pressed");
+  };
+  //console.log("Objects in item: " + cart);
 
   return (
     <div>
@@ -28,13 +73,61 @@ export default function Cart() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Shoppingcart!</h1>
+      <div className="m-8 p-4 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+        <h1>Shoppingcart!</h1>
+        <div>
+          {cart.map((item) => (
+            <div key={item.id} className="flex flex-row">
+              <div className="p-8 md:flex-shrink-0">
+                <Image
+                  width={170}
+                  height={210}
+                  src={item.image}
+                  alt={item.image}
+                />
+              </div>
+              <div className="mt-4 ">
+                <h4>{item.title}</h4>
+                <h4>Price: ${item.price.toFixed(2)}</h4>
+                <div className="flex justify-end bg-gray-200">
+                  <button
+                    className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                    onClick={() => removeOneItem(item)}
+                  >
+                    -
+                  </button>
+                  <h6>Number of items, to be added</h6>
+                  <button
+                    className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                    onClick={() => addOneMoreItem(item)}
+                  >
+                    +
+                  </button>
+                </div>
+                <button
+                  className="py-2 px-4 bg-red-400 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                  onClick={() => removeItem(item)}
+                >
+                  Remove from cart
+                </button>
+              </div>
+            </div>
 
-      {cart.map((item) => (
-        <div key={item}>
+            /*  <div key={item}>
           <h2>{item.title}</h2>
+        </div> */
+          ))}
+          <div className=" flex flex-col ">
+            <h2>Total price: ${totalPrice.toFixed(2)}</h2>
+            <button
+              className="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+              onClick={() => clearAll()}
+            >
+              Checkout
+            </button>
+          </div>
         </div>
-      ))}
+      </div>
     </div>
   );
 }
