@@ -55,11 +55,11 @@ export default function Home({ products }) {
             {products.slice(0, 3).map((product) => (
               <Link key={product.id} href={`products/${product.id}`}>
                 <motion.div
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1}}
                   whileTap={{ scale: 0.9 }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 5 }}
+                  initial={{ opacity: 0}}
+                  animate={{ opacity: 1, transition: {duration: 5}}}
+                  transition={{ duration: 0.2 }}
                   className=" opacity-80 hover:opacity-100 p-2 bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl grid justify-items-center"
                 >
                   <Image
