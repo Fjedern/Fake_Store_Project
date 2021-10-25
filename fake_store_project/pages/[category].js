@@ -2,6 +2,7 @@ import Head from "next/head";
 import styles from "../styles/productsDisplay.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import ProductCard from "../components/layout/ProductCard";
 
 export default function Category({ category }) {
   //console.log(category);
@@ -11,21 +12,11 @@ export default function Category({ category }) {
       <Head>
         <title>{category.category}</title>
       </Head>
-      <div className={styles.container}>
-        {category.map((item) => (
-          <Link key={item.id} href={`products/${item.id}`} passHref>
-            <div>
-              <Image
-                src={item.image}
-                alt={item.image}
-                width={200}
-                height={200}
-              />
-              <h2>{item.title}</h2>
-            </div>
-          </Link>
-        ))}
+
+      <div>
+        <ProductCard category={category}></ProductCard>
       </div>
+     
     </div>
   );
 }
@@ -50,3 +41,19 @@ export async function getStaticProps({ params }) {
 
   return { props: { category: data } };
 }
+
+/*<div className={styles.container}>
+{category.map((item) => (
+  <Link key={item.id} href={`products/${item.id}`} passHref>
+    <div>
+      <Image
+        src={item.image}
+        alt={item.image}
+        width={200}
+        height={200}
+      />
+      <h2>{item.title}</h2>
+    </div>
+  </Link>
+))}
+</div>*/

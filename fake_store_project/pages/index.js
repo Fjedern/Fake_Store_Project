@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/productsDisplay.module.css";
-import Link from "next/link";
+import ProductCard from "../components/layout/ProductCard";
 import { motion } from "framer-motion";
 
 export default function Home({ products }) {
@@ -33,7 +33,6 @@ export default function Home({ products }) {
       <div>
         <div className="w-auto">
           <div className="grid justify-items-center">
-
             <motion.div animate={{ rotate: -360 }} transition={{ duration: 1 }}>
               <Image
                 src="/FakeStoreLogo.PNG"
@@ -49,31 +48,8 @@ export default function Home({ products }) {
             >
               Today´s offer
             </motion.h2>
-
           </div>
-          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-50 min-w-full md:min-w-0  max-w-7xl mx-auto">
-            {products.slice(0, 3).map((product) => (
-              <Link key={product.id} href={`products/${product.id}`}>
-                <motion.div
-                  whileHover={{ scale: 1.1}}
-                  whileTap={{ scale: 0.9 }}
-                  initial={{ opacity: 0}}
-                  animate={{ opacity: 1, transition: {duration: 5}}}
-                  transition={{ duration: 0.2 }}
-                  className=" opacity-80 hover:opacity-100 p-2 bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl grid justify-items-center"
-                >
-                  <Image
-                    src={product.image}
-                    alt={product.image}
-                    width={170}
-                    height={210}
-                  />
-                  <h3 className="text-2xl font-semibold">{product.title}</h3>
-                  <p className="text-xl font-medium">Only ${product.price}</p>
-                </motion.div>
-              </Link>
-            ))}
-          </motion.div>
+          <ProductCard></ProductCard>
         </div>
       </div>
     </div>
