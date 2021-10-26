@@ -28,9 +28,11 @@ export default function Item({ item }) {
 
     //if item already exists
     if (existingItem) {
-      existingItem.quantity += item.quantity; //update item
+      existingItem.quantity++; 
+      // existingItem.quantity += item.quantity; //update item
     } else {
       //if item doesn't exist, simply add it
+      item.quantity = 1;
       cartCopy.push(item);
     }
 
@@ -50,7 +52,7 @@ export default function Item({ item }) {
     if (localCart) setCart(localCart);
   }, []); //the empty array ensures useEffect only runs once
 
-  console.log(localCart);
+  //console.log(localCart);
   return (
     <div className={styles.main}>
       <Head>

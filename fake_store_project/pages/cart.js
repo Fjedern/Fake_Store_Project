@@ -24,46 +24,51 @@ export default function Cart() {
     let tempTotalPrice = 0;
     for (let index = 0; index < cart.length; index++) {
       // console.log(cart[index].price);
-      tempTotalPrice = tempTotalPrice + cart[index].price;
+      tempTotalPrice =
+        tempTotalPrice + cart[index].price * cart[index].quantity;
     }
     setTotalPrice(tempTotalPrice);
   }, [cart]);
 
-  const removeFromLocalStorage = () => {
-    //Remove from local storage
-    let stringCart = JSON.stringify(cart);
+  const makeChangesInLocalStorage = (newCart) => {
+    let stringCart = JSON.stringify(newCart);
     localStorage.setItem("cart", stringCart);
   };
 
   const clearAll = () => {
-    console.log("Checkout button pressed");
+    let cartCopy = [];
+    setCart(cartCopy);
+    makeChangesInLocalStorage(cartCopy);
   };
 
   const removeItem = (item) => {
-    console.log(cart.length);
-    cart.forEach((e) => console.log("Before: " + e.title));
-
-    //Remove from cart
-    setCart(cart.filter((e) => e.title !== item.title));
-    setTimeout(() => {
-      cart.forEach((e) => console.log("After: " + e.title));
-      // console.log(localStorage);
-      removeFromLocalStorage();
-      //  console.log(localStorage);
-      console.log("Cart size: " + cart.length);
-
-      cart.forEach((e) => console.log(e));
-    }, 2000);
+    let cartCopy = [...cart];
+    let objIndex = cart.findIndex((e) => e.title === item.title);
+    // setCart(cart.filter((e) => e.title !== item.title));
+    cartCopy.splice(objIndex, 1);
+    setCart(cartCopy);
+    makeChangesInLocalStorage(cartCopy);
   };
 
   const removeOneItem = (item) => {
-    console.log("Remove one item button pressed");
+    let cartCopy = [...cart];
+    let objIndex = cart.findIndex((e) => e.title === item.title);
+    cartCopy[objIndex].quantity--;
+    if (cartCopy[objIndex].quantity <= 0) {
+      removeItem(item);
+    } else {
+      setCart(cartCopy);
+      makeChangesInLocalStorage(cartCopy);
+    }
   };
 
   const addOneMoreItem = (item) => {
-    console.log("Add one more item button pressed");
+    let cartCopy = [...cart];
+    let objIndex = cart.findIndex((e) => e.title === item.title);
+    cartCopy[objIndex].quantity++;
+    setCart(cartCopy);
+    makeChangesInLocalStorage(cartCopy);
   };
-  //console.log("Objects in item: " + cart);
 
   return (
     <div>
@@ -89,14 +94,14 @@ export default function Cart() {
               <div className="mt-4 ">
                 <h4>{item.title}</h4>
                 <h4>Price: ${item.price.toFixed(2)}</h4>
-                <div className="flex justify-end bg-gray-200">
+                <div className="flex justify-end space-x-4   bg-gray-200">
                   <button
                     className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
                     onClick={() => removeOneItem(item)}
                   >
                     -
                   </button>
-                  <h6>Number of items, to be added</h6>
+                  <h6>{item.quantity}</h6>
                   <button
                     className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
                     onClick={() => addOneMoreItem(item)}
