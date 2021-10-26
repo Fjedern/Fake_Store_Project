@@ -79,11 +79,13 @@ export default function Cart() {
       </Head>
 
       <div className="m-8 p-4 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-        <h1>Shoppingcart!</h1>
+        <h1 className="mb-8 text-center font-semibold text-3xl">
+          Shoppingcart!
+        </h1>
         <div>
           {cart.map((item) => (
-            <div key={item.id} className="flex flex-row">
-              <div className="p-8 md:flex-shrink-0">
+            <div key={item.id} className="flex flex-row  ">
+              <div className="p-8 w-2/5 md:flex-shrink-0">
                 <Image
                   width={170}
                   height={210}
@@ -91,39 +93,41 @@ export default function Cart() {
                   alt={item.image}
                 />
               </div>
-              <div className="mt-4 ">
+              <div className="mt-4 w-3/5  text-xl">
                 <h4>{item.title}</h4>
-                <h4>Price: ${item.price.toFixed(2)}</h4>
-                <div className="flex justify-end space-x-4   bg-gray-200">
+                <h4 className="mt-2 font-semibold">Price: ${item.price.toFixed(2)}</h4>
+                <div className="mt-6 flex justify-center space-x-1 ">
                   <button
-                    className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                    className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75"
                     onClick={() => removeOneItem(item)}
                   >
                     -
                   </button>
-                  <h6>{item.quantity}</h6>
+                  <h6 className="bg-gray-200 w-12 text-center font-semibold rounded-lg ">
+                    {item.quantity}
+                  </h6>
                   <button
-                    className="py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                    className=" py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75"
                     onClick={() => addOneMoreItem(item)}
                   >
                     +
                   </button>
                 </div>
-                <button
-                  className="py-2 px-4 bg-red-400 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
-                  onClick={() => removeItem(item)}
-                >
-                  Remove from cart
-                </button>
+                <div className="mt-2 flex justify-center">
+                  <button
+                    className=" py-2 px-4 bg-red-400 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                    onClick={() => removeItem(item)}
+                  >
+                    Remove from cart
+                  </button>
+                </div>
               </div>
             </div>
-
-            /*  <div key={item}>
-          <h2>{item.title}</h2>
-        </div> */
           ))}
           <div className=" flex flex-col ">
-            <h2>Total price: ${totalPrice.toFixed(2)}</h2>
+            <h2 className="text-center font-semibold text-xl">
+              Total price: ${totalPrice.toFixed(2)}
+            </h2>
             <button
               className="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
               onClick={() => clearAll()}
