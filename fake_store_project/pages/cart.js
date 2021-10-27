@@ -1,9 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Item from "./products/[id]";
+import { Context } from "../pages/_app";
 
 export default function Cart() {
+  const { count, setCount } = useContext(Context);
   let [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -39,6 +41,8 @@ export default function Cart() {
     let cartCopy = [];
     setCart(cartCopy);
     makeChangesInLocalStorage(cartCopy);
+
+    setCount(0);
   };
 
   const removeItem = (item) => {
@@ -48,6 +52,8 @@ export default function Cart() {
     cartCopy.splice(objIndex, 1);
     setCart(cartCopy);
     makeChangesInLocalStorage(cartCopy);
+
+    setCount(count - item.quantity);
   };
 
   const removeOneItem = (item) => {
@@ -60,6 +66,8 @@ export default function Cart() {
       setCart(cartCopy);
       makeChangesInLocalStorage(cartCopy);
     }
+
+    setCount(count - 1);
   };
 
   const addOneMoreItem = (item) => {
@@ -68,6 +76,8 @@ export default function Cart() {
     cartCopy[objIndex].quantity++;
     setCart(cartCopy);
     makeChangesInLocalStorage(cartCopy);
+
+    setCount(count + 1);
   };
 
   return (
