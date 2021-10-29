@@ -16,7 +16,6 @@ export default function Category({ category }) {
       <div>
         <ProductCard category={category}></ProductCard>
       </div>
-     
     </div>
   );
 }
@@ -25,7 +24,7 @@ export default function Category({ category }) {
 export async function getStaticPaths() {
   const res = await fetch("https://fakestoreapi.com/products/categories");
   const data = await res.json();
-  console.log("from paths: " + data);
+  //console.log("from paths: " + data);
 
   const paths = data.map((item) => ({ params: { category: item } }));
 
@@ -37,23 +36,7 @@ export async function getStaticProps({ params }) {
     `https://fakestoreapi.com/products/category/${params.category}`
   );
   const data = await res.json();
-  console.log("from props: " + data);
+  //console.log("from props: " + data);
 
   return { props: { category: data } };
 }
-
-/*<div className={styles.container}>
-{category.map((item) => (
-  <Link key={item.id} href={`products/${item.id}`} passHref>
-    <div>
-      <Image
-        src={item.image}
-        alt={item.image}
-        width={200}
-        height={200}
-      />
-      <h2>{item.title}</h2>
-    </div>
-  </Link>
-))}
-</div>*/
