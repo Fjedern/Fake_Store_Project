@@ -154,7 +154,6 @@ export default function Navbar() {
 /*<nav className={styles.navbar}>
 <Link href="/">Home</Link>
 <Link href={`${category[0]}`}</Link>
-
 <Link href="/">Jewelery</Link>
 <Link href="/">Men's clothing</Link>
 <Link href="/">Womens's clothing</Link>

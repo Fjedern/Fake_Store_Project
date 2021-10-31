@@ -2,6 +2,8 @@ import { createContext, useMemo, useState } from "react";
 import Layout from "../components/layout";
 import "../styles/globals.css";
 
+//console.log(process.env.REACT_APP_SENDGRID_API_KEY);
+
 //global variable
 export const Context = createContext({
   count: 0,
