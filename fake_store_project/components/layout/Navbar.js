@@ -45,7 +45,7 @@ export default function Navbar() {
           </Link>
           {navLinks.map((item) => (
             <Link key={item} href={`/${encodeURIComponent(item)}`} passHref>
-              <a className="text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium">
+              <a className="text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium ">
                 {Capitalize(item)}
               </a>
             </Link>
@@ -61,7 +61,7 @@ export default function Navbar() {
             className="absolute right-0 top-0 rounded-full bg-red-600 w-5 h-5 top right p-0 m-0 
             text-white font-mono text-sm leadinf-tight text-center"
           >
-           {value.count} 
+            {value.count}
           </span>
         </div>
       </div>
@@ -74,7 +74,6 @@ export default function Navbar() {
 /*<nav className={styles.navbar}>
 <Link href="/">Home</Link>
 <Link href={`${category[0]}`}</Link>
-
 <Link href="/">Jewelery</Link>
 <Link href="/">Men's clothing</Link>
 <Link href="/">Womens's clothing</Link>

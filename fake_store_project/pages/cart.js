@@ -45,6 +45,14 @@ export default function Cart() {
     setCount(0);
   };
 
+  //should replace clearAll when working correctly
+  const sendEmail = () => {
+    //msg should be items in the cart at total price
+    const msg = "Hello";
+    //console.log(msg);
+    fetch("/api/mail", { method: "post", body: JSON.stringify(msg) });
+  };
+
   const removeItem = (item) => {
     let cartCopy = [...cart];
     let objIndex = cart.findIndex((e) => e.title === item.title);
