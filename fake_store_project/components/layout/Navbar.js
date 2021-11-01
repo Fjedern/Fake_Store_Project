@@ -14,7 +14,7 @@ const Navbar = forwardRef(({ onClick, href }, ref) => {
   const [navLinks, setNavLinks] = useState([]);
   const [products, setProducts] = useState([]);
   const [productsMatchInput, setProductMatchInput] = useState([]);
-  const [inputText, setInputText] = useState();
+  const [inputText, setInputText] = useState("");
 
   const value = useContext(Context);
 
