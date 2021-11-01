@@ -1,7 +1,6 @@
 import Link from "next/link";
-import styles from "../../styles/NavAndFooter.module.css";
 import shoppingcart from "../../public/shoppingcartIcon.ico";
-import searchLogo from "../../public/search-icon.png";
+import searchLogo from "../../public/search-icon.ico";
 import Image from "next/image";
 import { useEffect, useState, useContext, forwardRef } from "react";
 import { Context } from "../../pages/_app";
@@ -88,9 +87,10 @@ const Navbar = forwardRef(({ onClick, href }, ref) => {
               <a
                 className="text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium"
                 href={href}
-                onClick={onClick}
+                onClick={
+                  (onClick, () => (showInputField ? showSearchField() : false))
+                }
                 ref={ref}
-                onClick={() => (showInputField ? showSearchField() : false)}
               >
                 {Capitalize(item)}
               </a>
@@ -99,7 +99,7 @@ const Navbar = forwardRef(({ onClick, href }, ref) => {
           <Link href="#" passHref>
             <a href={href} onClick={onClick} ref={ref}>
               <Image
-                className=""
+                className="filter invert"
                 alt={searchLogo}
                 src={searchLogo}
                 onClick={() => showSearchField()}
@@ -109,9 +109,10 @@ const Navbar = forwardRef(({ onClick, href }, ref) => {
           <Link href="/cart" passHref>
             <a
               href={href}
-              onClick={onClick}
+              onClick={
+                (onClick, () => (showInputField ? showSearchField() : false))
+              }
               ref={ref}
-              onClick={() => (showInputField ? showSearchField() : false)}
             >
               <Image
                 className="filter invert text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md realtive-flex"
