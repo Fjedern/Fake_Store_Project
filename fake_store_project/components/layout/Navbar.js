@@ -51,12 +51,15 @@ const Navbar = forwardRef(({ onClick, href }, ref) => {
           </Link>
           {navLinks.map((item) => (
             <Link key={item} href={`/${encodeURIComponent(item)}`} passHref>
+
               <a
                 className="text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium"
                 href={href}
                 onClick={onClick}
                 ref={ref}
               >
+
+           
                 {Capitalize(item)}
               </a>
             </Link>
@@ -80,6 +83,9 @@ const Navbar = forwardRef(({ onClick, href }, ref) => {
       </div>
     </nav>
   );
+
 });
 
 export default Navbar;
+
+

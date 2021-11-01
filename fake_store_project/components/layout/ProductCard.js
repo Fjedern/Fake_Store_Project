@@ -18,7 +18,7 @@ export default function ProductCard({ category }) {
       setLoading(false);
     }
 
-    category ? setProducts(category) : getProducts();
+    category ? setProducts(category) : getProducts(); //if there are prop category set those to products, else fetch products
   }, [category]);
 
   if (loading) return <div>Loading...</div>;
