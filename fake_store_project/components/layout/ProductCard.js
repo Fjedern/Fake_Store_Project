@@ -27,7 +27,7 @@ export default function ProductCard({ category }) {
   return (
     <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-50 min-w-full md:min-w-0  max-w-7xl mx-auto">
       {products.map((product) => (
-        <Link key={product.id} href={`products/${product.id}`} passHref>
+        <Link key={product.id} href={`products/${product.id}`}>
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}

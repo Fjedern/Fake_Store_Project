@@ -3,10 +3,12 @@ import styles from "../../styles/NavAndFooter.module.css";
 import shoppingcart from "../../public/shoppingcartIcon.ico";
 import searchLogo from "../../public/search-icon.png";
 import Image from "next/image";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, forwardRef } from "react";
 import { Context } from "../../pages/_app";
 
-export default function Navbar() {
+// eslint-disable-next-line react/display-name
+const Navbar = forwardRef(({ onClick, href }, ref) => {
+  //export default function Navbar() {
   const [loading, setLoading] = useState(false);
   const [showInputField, setShowInputField] = useState(false);
   const [navLinks, setNavLinks] = useState([]);
@@ -17,7 +19,6 @@ export default function Navbar() {
   const value = useContext(Context);
 
   useEffect(() => {
-    //get starter deck once when site loads
     async function getCategories() {
       setLoading(true);
       const res = await fetch("https://fakestoreapi.com/products/categories");
@@ -71,37 +72,45 @@ export default function Navbar() {
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
-          <Link href="/">
+
+          <Link href="/" passHref>
             <a
               className="text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium"
-              onClick={() => (showInputField ? showSearchField() : false)}
-            >
+              href={href}
+              onClick={onClick}
+              ref={ref}
+onClick={() => (showInputField ? showSearchField() : false)}
+  
               Home
             </a>
           </Link>
           {navLinks.map((item) => (
             <Link key={item} href={`/${encodeURIComponent(item)}`} passHref>
+
+
               <a
                 className="text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md text-lg font-medium"
-                onClick={() => (showInputField ? showSearchField() : false)}
+                href={href}
+                onClick={onClick}
+                ref={ref}
+                 onClick={() => (showInputField ? showSearchField() : false)}
               >
+
+    
                 {Capitalize(item)}
               </a>
             </Link>
           ))}
-          <Image
-            className=""
-            alt={searchLogo}
-            src={searchLogo}
-            onClick={() => showSearchField()}
-          />
-          <Link href="/cart" passHref>
-            <Image
-              className="filter invert text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md realtive-flex"
-              alt={shoppingcart}
-              src={shoppingcart}
-            />
+         <Link href="/cart" passHref>
+            <a href={href} onClick={onClick} ref={ref} onClick={() => (showInputField ? showSearchField() : false)}>
+              <Image
+                className="filter invert text-grey-300 hover:bg-gray-700 text-white px-3 py-2 rounded-md realtive-flex"
+                alt={shoppingcart}
+                src={shoppingcart}
+              />
+            </a>
           </Link>
+         
           <span
             className="absolute right-0 top-0 rounded-full bg-red-600 w-5 h-5 top right p-0 m-0 
             text-white font-mono text-sm leadinf-tight text-center"
@@ -121,7 +130,9 @@ export default function Navbar() {
               placeholder="Search by name"
             ></input>
             <Link href={`/search`}>
-              <button
+              <button href={href}
+                onClick={onClick}
+                ref={ref}
                 className="py-2 px-4 bg-red-400 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
                 onClick={() => {
                   showInputField ? showSearchField() : false,
@@ -147,18 +158,9 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
 
-//<Context.Consumer>{value =>{value}}</Context.Consumer>
+});
 
-/*<nav className={styles.navbar}>
-<Link href="/">Home</Link>
-<Link href={`${category[0]}`}</Link>
-<Link href="/">Jewelery</Link>
-<Link href="/">Men's clothing</Link>
-<Link href="/">Womens's clothing</Link>
-<Link href="about">About us</Link>
-<Link href="cart">
-  <Image alt={shoppingcart} src={shoppingcart} />
-</Link>
-</nav>*/
+export default Navbar;
+
+

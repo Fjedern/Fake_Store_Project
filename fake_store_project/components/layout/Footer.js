@@ -12,10 +12,11 @@ export default function Footer() {
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
           <p className="text-gray-500 text-sm text-center sm:text-left">
             © 2021 Copyright:{" "}
-            <p className="inline-flex text-gray-500 ml-1">
-              Fjedern Swala PalmquistS
-            </p>
           </p>
+          <p className="inline-flex text-gray-500 ml-1 text-sm">
+            Fjedern Swala PalmquistS
+          </p>
+
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
             <div className="flex space-x-4">
               <Link href="/about" className="text-gray-400" passHref>
