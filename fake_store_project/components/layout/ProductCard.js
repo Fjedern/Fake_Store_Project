@@ -12,12 +12,9 @@ export default function ProductCard({ category }) {
       setLoading(true);
       const res = await fetch("https://fakestoreapi.com/products");
       const data = await res.json();
-      //console.log(data);
-
       setProducts(data.slice(0, 3)); //only for start page, if we have a view all products this needs to change
       setLoading(false);
     }
-
     category ? setProducts(category) : getProducts(); //if there are prop category set those to products, else fetch products
   }, [category]);
 
@@ -27,7 +24,7 @@ export default function ProductCard({ category }) {
   return (
     <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-50 min-w-full md:min-w-0  max-w-7xl mx-auto">
       {products.map((product) => (
-        <Link key={product.id} href={`products/${product.id}`}>
+        <Link key={product.id} href={`products/${product.id}`} passHref>
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}

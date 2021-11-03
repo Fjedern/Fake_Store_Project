@@ -2,10 +2,10 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../../styles/productsDisplay.module.css";
 import { useEffect, useState, useContext } from "react";
-import { Context } from "../../pages/_app";
+import { Context } from "../_app";
 
 export default function Item({ item }) {
-  let [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]);
   const { count, setCount } = useContext(Context);
 
   let localCart;
@@ -28,10 +28,9 @@ export default function Item({ item }) {
 
     //if item already exists
     if (existingItem) {
-      existingItem.quantity++; 
-      // existingItem.quantity += item.quantity; //update item
+      existingItem.quantity++;
     } else {
-      //if item doesn't exist, simply add it
+      //if item doesn't exist add it
       item.quantity = 1;
       cartCopy.push(item);
     }
@@ -39,20 +38,18 @@ export default function Item({ item }) {
     //update app state
     setCart(cartCopy);
 
-    //make cart a string and store in local space
+    //make cart a string and store in local storage
     let stringCart = JSON.stringify(cartCopy);
     localStorage.setItem("cart", stringCart);
   };
 
-  //this is called on component mount
   useEffect(() => {
     //turn it into js
     localCart = JSON.parse(localCart);
     //load persisted cart into state if it exists
     if (localCart) setCart(localCart);
-  }, []); //the empty array ensures useEffect only runs once
+  }, []);
 
-  //console.log(localCart);
   return (
     <div className={styles.main}>
       <Head>

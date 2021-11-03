@@ -5,9 +5,7 @@ import Image from "next/image";
 import { useEffect, useState, useContext, forwardRef } from "react";
 import { Context } from "../../pages/_app";
 
-// eslint-disable-next-line react/display-name
 const Navbar = forwardRef(({ onClick, href }, ref) => {
-  //export default function Navbar() {
   const [loading, setLoading] = useState(false);
   const [showInputField, setShowInputField] = useState(false);
   const [navLinks, setNavLinks] = useState([]);
@@ -18,29 +16,17 @@ const Navbar = forwardRef(({ onClick, href }, ref) => {
   const value = useContext(Context);
 
   useEffect(() => {
-    async function getCategories() {
+    async function getCategoriesAndProducts() {
       setLoading(true);
       const res = await fetch("https://fakestoreapi.com/products/categories");
+      const res2 = await fetch("https://fakestoreapi.com/products");
       const data = await res.json();
-      //console.log(data);
-
+      const data2 = await res2.json();
       setNavLinks(data);
-      setLoading(false);
-      //console.log(cartItems);
-    }
-
-    getCategories();
-  }, []);
-
-  useEffect(() => {
-    async function getProducts() {
-      setLoading(true);
-      const res = await fetch("https://fakestoreapi.com/products");
-      const data = await res.json();
-      setProducts(data);
+      setProducts(data2);
       setLoading(false);
     }
-    getProducts();
+    getCategoriesAndProducts();
   }, []);
 
   useEffect(() => {

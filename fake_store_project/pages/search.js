@@ -3,7 +3,7 @@ import ProductCard from "../components/layout/ProductCard";
 import { useState, useEffect } from "react";
 
 export default function Search() {
-  let [searchFor, setSearchFor] = useState([]);
+  const [searchFor, setSearchFor] = useState([]);
 
   let productSearch;
   if (typeof window !== "undefined") {
